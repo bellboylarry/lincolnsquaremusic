@@ -247,44 +247,44 @@
   <script>
     (function () {
       // Paste your Google Apps Script Web App URL here after deploying
-      var SCRIPT_URL = ‘https://script.google.com/macros/s/AKfycbw83S-0FeTbRaPyrqO2XeJQUvu0Rb4bqhsKzhQjRcnZvoePlSwVZ0RwrUdmLE-6kj6g/exec’;
+      var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw83S-0FeTbRaPyrqO2XeJQUvu0Rb4bqhsKzhQjRcnZvoePlSwVZ0RwrUdmLE-6kj6g/exec';
 
-      var form = document.getElementById(‘signup’);
-      var input = document.getElementById(‘email’);
-      var btn = form.querySelector(‘button’);
-      var note = document.getElementById(‘note’);
+      var form = document.getElementById('signup');
+      var input = document.getElementById('email');
+      var btn = form.querySelector('button');
+      var note = document.getElementById('note');
 
-      form.addEventListener(‘submit’, function (e) {
+      form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var email = (input.value || ‘’).trim();
+        var email = (input.value || '').trim();
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          note.textContent = ‘Please enter a valid email address.’;
+          note.textContent = 'Please enter a valid email address.';
           input.focus();
           return;
         }
 
         btn.disabled = true;
-        btn.textContent = ‘Saving…’;
-        note.textContent = ‘’;
+        btn.textContent = 'Saving…';
+        note.textContent = '';
 
         fetch(SCRIPT_URL, {
-          method: ‘POST’,
-          mode: ‘no-cors’,
-          headers: { ‘Content-Type’: ‘text/plain’ },
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify({ email: email, timestamp: new Date().toISOString() })
         })
         .then(function () {
-          form.classList.add(‘done’);
-          input.value = ‘’;
-          input.placeholder = ‘You’re on the list’;
-          btn.textContent = ‘Sign up’;
+          form.classList.add('done');
+          input.value = '';
+          input.placeholder = 'You're on the list';
+          btn.textContent = 'Sign up';
           btn.disabled = false;
-          note.textContent = ‘Thanks — we’ll be in touch when we launch.’;
+          note.textContent = 'Thanks — we'll be in touch when we launch.';
         })
         .catch(function () {
-          btn.textContent = ‘Sign up’;
+          btn.textContent = 'Sign up';
           btn.disabled = false;
-          note.textContent = ‘Something went wrong — please try again.’;
+          note.textContent = 'Something went wrong — please try again.';
         });
       });
     })();
